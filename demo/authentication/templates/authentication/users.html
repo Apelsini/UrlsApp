@@ -1,0 +1,18 @@
+{% extends 'polls/base.html' %}
+{% block Title %}Users{% endblock %}
+{% block Body %}
+<style>
+   .colortext {
+     color: red; /* Красный цвет выделения */
+   }
+  </style>
+    {% if user_list %}
+        <ul>
+            {% for profile in user_list %}
+                <li><b>{{ profile.user.username }}</b> [{{ profile.user.email }}]
+                    {% if profile.user.is_staff %} <span class="colortext">(customer)</span>  {% endif %}
+                    <button type="button" class="btn btn-warning" onclick="location.href='{{ profile.get_absolute_url }}'">Open</button> </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
