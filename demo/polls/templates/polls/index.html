@@ -14,16 +14,17 @@
 <legend>Links of all authors:</legend>
 
     {% for links in links_list %}
-        <br> <br> <a href="{% url 'polls:detail' links.id %}">
-          {{ links.url_text }}
+         <a href="{% url 'polls:detail' links.id %}">
+          {{ links.url_text|slice:':75' }}
         </a>
      <br> <b>Author:</b>{{ links.author }} {% if links.author.is_staff %} <span class="colortext">(customer)</span> {% endif%}
            <b>Date:</b> {{ links.create_date }} <a href="{% url 'polls:delete' links.id %}" type="button" class="btn btn-danger btn-sm">
                   Delete
         </a>
+      <br> <br>
              {% endfor %}
 
-      <br><br><legend>Your links, [{{ request.user.username }}]</legend>
+      <legend>Your links, [{{ request.user.username }}]</legend>
         {% endif %}
 
         {% if links.author == request.user %}
@@ -33,9 +34,9 @@
       {% if links.author == request.user %}
 
         <a href="{% url 'polls:detail' links.id %}">
-          {{ links.url_text }}
+          {{ links.url_text|slice:':75' }}
         </a>
-           <b>date:</b>[{{ links.create_date }}]
+          <br> <b>date:</b>[{{ links.create_date }}]
         <a href="{% url 'polls:delete' links.id %}" type="button" class="btn btn-danger btn-sm">
                   Delete
         </a>

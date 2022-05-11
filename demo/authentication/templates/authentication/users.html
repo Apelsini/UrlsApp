@@ -7,12 +7,22 @@
    }
   </style>
     {% if user_list %}
-        <ul>
+<table class="table table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Operations</th>
+    </tr>
+
             {% for profile in user_list %}
-                <li><b>{{ profile.user.username }}</b> [{{ profile.user.email }}]
-                    {% if profile.user.is_staff %} <span class="colortext">(customer)</span>  {% endif %}
-                    <button type="button" class="btn btn-warning" onclick="location.href='{{ profile.get_absolute_url }}'">Open</button> </li>
+    <tr>
+              <th><b>{{ profile.user.username }}</b>   {% if profile.user.is_staff %} <span class="colortext">(customer)</span>  {% endif %}</th>
+        <th>{{ profile.user.email }}]</th>
+            <th><button type="button" class="btn btn-warning" onclick="location.href='{{ profile.get_absolute_url }}'">Open</button> </th>
+        </tr>
             {% endfor %}
-        </ul>
+  </thead>
+</table>
     {% endif %}
 {% endblock %}
