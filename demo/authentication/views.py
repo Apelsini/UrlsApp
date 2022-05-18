@@ -13,7 +13,7 @@ import json
 import os
 
 #import secrets from secrets.json file
-def get_secret(setting):
+def get_secret(setting):  #reads secrets.json from root directory of the app
     with open('secrets.json') as secrets_file:
         secrets = json.load(secrets_file)
     """Get secret setting or fail with ImproperlyConfigured"""
@@ -54,8 +54,8 @@ def customers_page(request, pk): #this page is for granting access to is_staff v
             form = CheckCustomerForm(request.POST)
             if form.is_valid():
                 cd = form.cleaned_data
-                if cd['codeword']==get_secret('SECRET_KEY'):
-                    if user.is_staff==False:
+                if cd['codeword']==get_secret('SECRET_KEY'): #list of sectret keys - see secrets.json
+                    if user.is_staff==False: #section when user is registered via SMS
                         user.is_staff=True
                     user.save()
                 #Profile.objects.create(user=user).save()
@@ -63,12 +63,12 @@ def customers_page(request, pk): #this page is for granting access to is_staff v
                 else:
                     messages.error(request, 'Incorrect codeword, please try again')
         else:
-            profile.user.is_staff = not user.is_staff
+            profile.user.is_staff = not user.is_staff  #if user is admin, he can switch/unswitch customer privileges
             profile.user.save()
     else:
         if request.user.is_superuser:
             user = User.objects.get(pk=pk)
-            user.is_staff = not user.is_staff
+            user.is_staff = not user.is_staff #if user is superuser, created through shell, he can switch/unswitch customer privileges
             user.save()
         form = CheckCustomerForm()
         if form.is_valid():
