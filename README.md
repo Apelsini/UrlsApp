@@ -1,5 +1,6 @@
-# UrlsApp
- URL links shortener diplom app
+# UrlsApp modified
+ URL links shortener diplom app  - start modifications
+ adding cpanel.yml
 
 # Недоделки:
 - Запустить на сервере u9.by (миграция с preclass.u9.by)
